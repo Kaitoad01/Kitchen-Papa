@@ -1,25 +1,20 @@
-import javax.swing.JFrame;
+import javax.swing.*;
+import java.awt.*;
 
-public class GamePanel {
-    public static void main(String[] args) throws Exception {
-        int rowCount = 21;
-        int columnCount = 19;
-        int tileSize = 32;
-        int boardWidth = columnCount * tileSize;
-        int boardHeight = rowCount * tileSize;
+public class GamePanel extends JPanel {
+        // SCREEN SETTING
+        final int originalTileSize = 16; //16x16 tile
+        final int scale = 3;
 
-        JFrame frame = new JFrame("Kitchen Papa");
-        frame.setVisible(true);
-        frame.setSize(boardWidth, boardHeight);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        final int tileSize = originalTileSize * scale; // 48x48 tile
+        final int maxScreenCol = 16;
+        final int maxScreenRow = 12;
+        final int screenWidth = tileSize * maxScreenCol; // 768 pixels
+        final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
-        //CozyCooking cozyCookingGame = new CozyCooking();
-        //frame.add(cozyCookingGame);
-        //frame.pack();
-        //cozyCookingGame.requestFocus();
-        //frame.setVisible(true);
-
-    }
+        public GamePanel() {
+                this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+                this.setBackground(Color.BLACK);
+                this.setDoubleBuffered(true);
+        }
 }
