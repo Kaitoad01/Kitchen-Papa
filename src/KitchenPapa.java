@@ -2,7 +2,7 @@ import javax.swing.*;
 
 public class KitchenPapa {
     public static void main(String[] args) {
-        JFrame window = new JFrame("Cooking");
+        JFrame window = new JFrame("Kitchen Papa");
         window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -12,6 +12,5 @@ public class KitchenPapa {
 
 
         window.setVisible(true);
-        System.out.println("Hello Wolrd");
     }
 }
