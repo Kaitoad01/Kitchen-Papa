@@ -1,4 +1,3 @@
-public class CuttingGame {
-    int countCut;
-
-}
+//public class CuttingGame extends MiniGame{
+//
+//}

@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.util.Timer;
 
-public abstract class Menu {
+public abstract class MiniGame {
     Timer gameTimer;
     boolean isFinished;
 

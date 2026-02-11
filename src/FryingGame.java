@@ -1,4 +1,3 @@
-public class FryingGame {
-    float heatLevel;
-
-}
+//public class FryingGame extends MiniGame{
+//
+//}
