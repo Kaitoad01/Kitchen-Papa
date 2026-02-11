@@ -1,3 +1,3 @@
-//public class CuttingGame extends MiniGame{
-//
-//}
+public class CuttingGame extends MiniGame{
+
+}

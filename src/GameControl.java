@@ -6,7 +6,7 @@ public class GameControl extends JFrame {
         JPanel mainPanel = new JPanel(cardLayout);
 
         private String selectedMenu;
-        private int currentStage = 0;
+        private int currentStage;
 
         private JPanel gameContainer = new JPanel(new BorderLayout()); // for miniGame Stage
 
