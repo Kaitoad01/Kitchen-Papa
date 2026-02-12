@@ -1,3 +1,5 @@
-public class CuttingGame extends MiniGame{
+public class CuttingGame {
+    // เกมตัด
+    int sliceCount;
 
 }
