@@ -7,5 +7,6 @@ public abstract class Minigame extends JPanel {
         this.gameControl = gameControl;
     }
     public abstract void startGame();
+    public abstract void initGame();
 
 }
