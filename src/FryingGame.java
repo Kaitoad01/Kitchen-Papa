@@ -1,3 +1,3 @@
-public class FryingGame extends MiniGame{
-
+public class FryingGame{
+    // เกมทอด
 }

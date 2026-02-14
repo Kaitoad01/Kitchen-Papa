@@ -12,14 +12,15 @@ public class GameControl extends JFrame {
 
         public GameControl() {
                 setTitle("Kitchen Papa");
+
                 setSize(1000,600);
                 setDefaultCloseOperation(EXIT_ON_CLOSE);
-                setLocation(null);
+                setLocationRelativeTo(null);
 
-//                mainPanel.add(new HomeScene(this), "HOME");
-//                mainPanel.add(new SelectionScene(this), "SELECT");
-//                mainPanel.add(gameContainer, "GAME");
-//                mainPanel.add(new ResultScene(this), "RESULT");
+                mainPanel.add(new HomeScene(this), "HOME");
+                mainPanel.add(new SelectionScene(this), "SELECT");
+                mainPanel.add(gameContainer, "GAME");
+                mainPanel.add(new ResultScene(this), "RESULT");
                 add(mainPanel);
                 setVisible(true);
         }
@@ -31,7 +32,7 @@ public class GameControl extends JFrame {
         public void showScene(String name) {
                 cardLayout.show(mainPanel,name);
         }
-        public void startGame(String menuName) {
+        public void startGame(String menuName) { // start minigame
                 selectedMenu = menuName;
                 currentStage = 1;
 //                loadStage(currentStage);
@@ -56,6 +57,8 @@ public class GameControl extends JFrame {
         }
         public void nextStage() {
                 currentStage++;
+                // เพื่ม if else เช็คว่าด้านสุดท้ายหรือไม่
+                //  ไม่แน่ใจว่าควรเช็คตั้งว่า method นี้เลยมั้ย
                 loadStage(currentStage);
         }
         public String getSelectedMenu() {
