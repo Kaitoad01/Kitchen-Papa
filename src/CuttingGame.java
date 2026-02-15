@@ -59,8 +59,8 @@ public class CuttingGame extends Minigame{
         isGameOver = true;
 
         if (cutCount >= TARGET_CUTS) {
-            Ingredient choppedItem = new Ingredient(this .targetItemName, Ingredient.State.CHOPPED);
-            gameControl.addCompletedIngredient(choppedItem);
+            Ingredient choppedItem = new Ingredient(gameControl.getSelectedMenu(), Ingredient.State.CHOPPED);
+            gameControl.addCompleted(choppedItem);
              gameControl.nextStage();
         } else {
             System.out.println("You Lost!");
