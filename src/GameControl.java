@@ -32,20 +32,21 @@ public class GameControl extends JFrame {
         public void showScene(String name) {
                 cardLayout.show(mainPanel,name);
         }
-        public void startGame(String menuName) { // start minigame
+        // Wait for modify
+        public void startGame(String menuName) { // start minigame ,Use when menu clicked
                 selectedMenu = menuName;
                 currentStage = 1;
 //                loadStage(currentStage);
                 showScene("GAME");
         }
         private void loadStage(int stage) {
-                gameContainer.removeAll();
+                gameContainer.removeAll(); // กันแตก
                 JPanel currentMinigame = new JPanel();
-
+                // this whole if should have better algorithym to run
                 if (selectedMenu.equals("Burger")) {
 //                        if(stage == 1) currentMinigame = new CuttingGame("Meat");
 //                        else if (stage == 2) currentMinigame = new FryingGame("Meat");
-//                        // may be add more stage
+//                        // maybe add more stage
 //                        else {
 //                                showScene("RESULT");
 //                                return;
@@ -63,5 +64,9 @@ public class GameControl extends JFrame {
         }
         public String getSelectedMenu() {
                 return selectedMenu;
+        }
+        // เรียกตอนทำไม่ทันเวลา (Wait for modify)
+        public void failedStage(){
+                 System.out.println("Game Over");
         }
 }
