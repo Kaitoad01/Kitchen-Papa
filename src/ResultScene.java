@@ -17,4 +17,6 @@ public class ResultScene extends JPanel {
         add(btnHome);
         add(btnRetry);
     }
+
+    // add method show failed scene
 }

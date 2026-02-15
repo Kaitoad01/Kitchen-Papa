@@ -1,27 +1,93 @@
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+import javax.swing.Timer;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Color;
 public class CuttingGame extends Minigame{
     // เกมตัด
-    int levelOfCutting; // ชื่อตัวแปรแปลกๆ แก้ดีมั้ย? sliceCount cutCount
+    private int cutCount;
+    private boolean isGameOver;
+    private int timeLeft;
+
+    // Configuration
+    private final int TARGET_CUTS = 20; // Player needs 20  (Wait for modify)
+    private final int TIME_LIMIT = 5;   // Player has 5 seconds (Wait for modify)
+    private Timer timer;
+
 
     public CuttingGame(GameControl gameControl) {
         super(gameControl);
+        // Initialize the timer (runs every 1000ms = 1 second)
+        timer = new Timer(1000, e -> {
+            timeLeft--;
+            if (timeLeft <= 0) {
+                endGame();
+            }
+            repaint(); // Redraw the timer on screen
+        });
 
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                levelOfCutting++;
+                if(!isGameOver) {
+                    cutCount++;
+                    if (cutCount >= TARGET_CUTS) endGame();
+                    repaint(); // Redraw screen to show new score
+                }
             }
         });
+
     }
 
     @Override
     public void startGame() {
-        System.out.println("Hehe"); // เขียนไว้ไม่ได้เก่งเฉยๆ
+        initGame(); // Reset everything
+        timer.start(); // Start the countdown
+        System.out.println("Game Started: Chop fast!");
     }
     @Override
     public void initGame() {
-        levelOfCutting = 0;
+        cutCount = 0;
+        timeLeft = TIME_LIMIT;
+        isGameOver = false;
+        repaint();
+    }
+    @Override
+    public void endGame() {
+        timer.stop();
+        isGameOver = true;
+
+        if (cutCount >= TARGET_CUTS) {
+            Ingredient choppedItem = new Ingredient(this .targetItemName, Ingredient.State.CHOPPED);
+            gameControl.addCompletedIngredient(choppedItem);
+             gameControl.nextStage();
+        } else {
+            System.out.println("You Lost!");
+            gameControl.showScene("RESULT");
+        }
+        repaint();
+    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g); // ล้างหน้าจอเก่า
+
+        // ตั้งค่าตัวหนังสือ
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Arial", Font.BOLD, 24));
+
+        // วาดเวลาและคะแนนไว้มุมซ้ายบน
+        g.drawString("Time Left: " + timeLeft + "s", 20, 40);
+        g.drawString("Cuts: " + cutCount + " / " + TARGET_CUTS, 20, 70);
+
+        // วาดวัตถุดิบจำลอง (สี่เหลี่ยมสีแดงตรงกลางจอ)
+        if (!isGameOver) {
+            g.setColor(Color.RED);
+            g.fillRect(getWidth() / 2 - 50, getHeight() / 2 - 50, 100, 100);
+        } else {
+            // ถ้าจบเกมให้แสดงข้อความกลางจอ
+            g.setColor(cutCount >= TARGET_CUTS ? Color.GREEN : Color.RED);
+            g.drawString(cutCount >= TARGET_CUTS ? "SUCCESS!" : "FAILED!", getWidth() / 2 - 60, getHeight() / 2);
+        }
     }
 }
