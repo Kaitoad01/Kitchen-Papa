@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 
-// 🌟 สืบทอดจาก BackgroundPanel เพื่อให้ใส่รูปพื้นหลังได้สวยๆ
 public class SelectionScene extends BackgroundPanel {
 
     private GameControl gameControl;
@@ -17,7 +16,7 @@ public class SelectionScene extends BackgroundPanel {
         JPanel menuPanel = new JPanel();
         menuPanel.setLayout(new GridLayout(5, 1, 10, 15)); // 5 แถว, 1 คอลัมน์, ห่างกันแนวตั้ง 15px
         menuPanel.setOpaque(false); // ทำให้พื้นหลังใส เพื่อให้ทะลุเห็นรูป Background
-        menuPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // ดันขอบเข้ามาให้ดูสวยงาม
+        menuPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // ดันขอบเข้ามา
 
         String[] menus = {"Burger", "Steak", "Salad", "Soup", "Sandwich"};
 
@@ -25,9 +24,8 @@ public class SelectionScene extends BackgroundPanel {
             JButton btnMenu = new JButton(menuName);
             btnMenu.setFont(new Font("Arial", Font.BOLD, 24));
 
-            // 🌟 พระเอกอยู่ตรงนี้: พอกดปุ่มปุ๊บ สั่ง GameControl ให้เริ่มเกมเมนูนั้นทันที
             btnMenu.addActionListener(e -> {
-                System.out.println("Player selected: " + menuName); // ปริ้นเช็คใน Console
+                System.out.println("Player selected: " + menuName); // ปริ้นเช็ค
                 gameControl.startGame(menuName); // โยนชื่อเมนูไปให้ระบบโหลดด่าน
             });
 

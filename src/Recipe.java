@@ -24,12 +24,6 @@ public class Recipe {
         }
         return null;
      }
-//    public Class<?extends  Minigame> getStage(int index) {
-//        if (index >= 0 && index < stage.size()) {
-//            return stage.get(index);
-//        }
-//        return null; // จบด่านหรือไม่มีด่าน
-//    }
 
 
 

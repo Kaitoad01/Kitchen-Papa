@@ -9,7 +9,7 @@ public class GameControl extends JFrame {
         CardLayout cardLayout = new CardLayout();
         JPanel mainPanel = new JPanel(cardLayout);
 
-        private String selectedMenu;
+        public String selectedMenu;
         private int currentStage;
 
         private JPanel gameContainer = new JPanel(new BorderLayout()); // for miniGame Stage
@@ -24,6 +24,7 @@ public class GameControl extends JFrame {
                 setSize(1000,600);
                 setDefaultCloseOperation(EXIT_ON_CLOSE);
                 setLocationRelativeTo(null);
+                initializeRecipes();
 
                 mainPanel.add(new HomeScene(this), "HOME");
                 mainPanel.add(new SelectionScene(this), "SELECT");
@@ -60,7 +61,7 @@ public class GameControl extends JFrame {
                 selectedMenu = menuName;
                 currentStage = 0;
                 playerInventory.clear();
-                if (menuName.equals("Burger")) {
+                if (menuName.equalsIgnoreCase("Burger")) {
                         playerInventory.add(new Ingredient("Sauce", Ingredient.State.READY));
                         playerInventory.add(new Ingredient("Mayo", Ingredient.State.READY));
                         playerInventory.add(new Ingredient("Cheese", Ingredient.State.READY));

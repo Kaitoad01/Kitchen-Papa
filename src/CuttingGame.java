@@ -16,7 +16,7 @@ public class CuttingGame extends Minigame{
     private Timer timer;
 
     public CuttingGame(GameControl gameControl) {
-        this(gameControl,10,5);
+        this(gameControl,5,20);
     }
     public CuttingGame(GameControl gameControl, int TARGET_CUTS, int TIME_LIMIT) {
 
