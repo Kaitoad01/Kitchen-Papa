@@ -37,14 +37,16 @@ public class GameControl extends JFrame {
         private void initializeRecipes() {
                 // Menu Burger
                 Recipe burger = new Recipe("Burger");
-                burger.addStage(CuttingGame.class);
-                burger.addStage(FryingGame.class);
+                burger.addStage(CuttingGame.class,"Onion");
+                burger.addStage(CuttingGame.class,"Tomato");
+                burger.addStage(FryingGame.class,"Meat");
+                burger.addStage(FryingGame.class,"Bun");
+                burger.addStage(StackingGame.class,"Burger");
+
                 recipeMap.put("Burger", burger);
 
                 // Menu Steak
                 Recipe steak = new Recipe("Steak");
-                steak.addStage(CuttingGame.class);
-                steak.addStage(FryingGame.class);
                 recipeMap.put("Steak",steak);
         }
 
@@ -64,18 +66,20 @@ public class GameControl extends JFrame {
                         playerInventory.add(new Ingredient("Cheese", Ingredient.State.READY));
                 } // เพิ่มเงื่อนไขสำหรับเมนูอื่น
                 loadStage(currentStage);
-                showScene("GAME"); // ควรมีมั้ย
+                showScene("GAME");
         }
         private void loadStage(int stage) {
                 gameContainer.removeAll();
                 Recipe currentRecipe = recipeMap.get(selectedMenu);
-                Class<? extends Minigame> gameClass = currentRecipe.getStage(stage);
-                if (gameClass != null) {
+                Recipe.StageData currentStageData = currentRecipe.getStage(stage);
+                if (currentStageData != null) {
                         try {
-                                Minigame game = gameClass.getConstructor(GameControl.class).newInstance(this);
+                                Minigame game = currentStageData.gameClass.getConstructor(GameControl.class).newInstance(this);
+                                game.setTargetIngredient(currentStageData.targetIngredient);
                                 gameContainer.add(game,BorderLayout.CENTER);
+                                game.startGame();
                         } catch(Exception e) {
-                                System.out.println("Error to loadStage: " + gameClass.getName());
+                                System.out.println("Error to loadStage: " + currentStageData.gameClass.getName());
                                 e.printStackTrace();
                         }
                 } else {
@@ -85,6 +89,7 @@ public class GameControl extends JFrame {
                 gameContainer.revalidate(); // จัด layout ใหม่
                 gameContainer.repaint(); // วาดจอใหม่
         }
+
         public void nextStage() {
                 currentStage++;
                 // เพื่ม if else เช็คว่าด้านสุดท้ายหรือไม่

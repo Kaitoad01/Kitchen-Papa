@@ -1,22 +1,35 @@
 import java.util.*;
 public class Recipe {
+    public static class StageData {
+        public Class<? extends Minigame> gameClass;
+        public String targetIngredient;
+
+        public StageData(Class<? extends Minigame> gameClass, String targetIngredient) {
+            this.gameClass = gameClass;
+            this.targetIngredient = targetIngredient;
+        }
+    }
     private String name;
-    private List<Class<? extends Minigame>> stage = new ArrayList<>();
+    private List<StageData> stages = new ArrayList<>();
 
     public Recipe(String name) {
         this.name = name;
     }
-    public void addStage(Class<? extends Minigame> stageClass) {
-        stage.add(stageClass);
+    public void addStage(Class<? extends Minigame> stageClass,String targetIngredient) {
+        stages.add(new StageData(stageClass,targetIngredient));
     }
-    public Class<?extends  Minigame> getStage(int index) {
-        if (index >= 0 && index < stage.size()) {
-            return stage.get(index);
+    public StageData getStage(int index) {
+        if (index >= 0 && index < stages.size()) {
+            return stages.get(index);
         }
-        return null; // จบด่านหรือไม่มีด่าน
-    }
-    // เก็บด่านเกมของแต่ละเมนู
-    List<String> burger = List.of("sauce","mayo","cheese","onion","tomato","meat","bun");
+        return null;
+     }
+//    public Class<?extends  Minigame> getStage(int index) {
+//        if (index >= 0 && index < stage.size()) {
+//            return stage.get(index);
+//        }
+//        return null; // จบด่านหรือไม่มีด่าน
+//    }
 
 
 

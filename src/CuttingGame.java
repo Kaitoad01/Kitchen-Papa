@@ -11,13 +11,18 @@ public class CuttingGame extends Minigame{
     private int timeLeft;
 
     // Configuration
-    private final int TARGET_CUTS = 20; // Player needs 20  (Wait for modify)
-    private final int TIME_LIMIT = 5;   // Player has 5 seconds (Wait for modify)
+    private int TARGET_CUTS = 20; // Player needs 20  (Wait for modify)
+    private int TIME_LIMIT = 5;   // Player has 5 seconds (Wait for modify)
     private Timer timer;
 
-
     public CuttingGame(GameControl gameControl) {
+        this(gameControl,10,5);
+    }
+    public CuttingGame(GameControl gameControl, int TARGET_CUTS, int TIME_LIMIT) {
+
         super(gameControl);
+        this.TARGET_CUTS =TARGET_CUTS;
+        this.TIME_LIMIT = TIME_LIMIT;
         // Initialize the timer (runs every 1000ms = 1 second)
         timer = new Timer(1000, e -> {
             timeLeft--;
@@ -57,16 +62,16 @@ public class CuttingGame extends Minigame{
     public void endGame() {
         timer.stop();
         isGameOver = true;
+        repaint();
 
         if (cutCount >= TARGET_CUTS) {
-            Ingredient choppedItem = new Ingredient(gameControl.getSelectedMenu(), Ingredient.State.CHOPPED);
-            gameControl.addCompleted(choppedItem);
+            Ingredient choppedItem = new Ingredient(this.targetIngredient, Ingredient.State.CHOPPED);
+            gameControl.addCompleted(choppedItem); // add ingredient to playerInventory
              gameControl.nextStage();
         } else {
             System.out.println("You Lost!");
             gameControl.showScene("RESULT");
         }
-        repaint();
     }
     @Override
     protected void paintComponent(Graphics g) {

@@ -45,11 +45,11 @@ public class FryingGame extends Minigame{
         isGameOver = true;
 
         if (flipedCount >= TARGET_FLIPS) {
-            System.out.println("You Won!");
-            // gameControl.nextStage();
+            Ingredient friedItem = new Ingredient(this.targetIngredient, Ingredient.State.FRIED);
+            gameControl.addCompleted(friedItem);
+             gameControl.nextStage();
         } else {
-            System.out.println("You Lost!");
-            // gameControl.failedStage(); Do not have this thing yet but should
+            gameControl.showScene("RESULT");
         }
         repaint();
     }
