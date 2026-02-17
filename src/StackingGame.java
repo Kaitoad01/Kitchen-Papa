@@ -125,9 +125,7 @@ public class StackingGame extends Minigame {
         delay.start();
     }
 
-    // ==========================================
-    // 🌟 ส่วนวาดกราฟิก (Painting Logic) 🌟
-    // ==========================================
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

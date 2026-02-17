@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.xml.transform.Result;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ public class GameControl extends JFrame {
         private int currentStage;
 
         private JPanel gameContainer = new JPanel(new BorderLayout()); // for miniGame Stage
+        private ResultScene resultScene;
         private Map<String,Recipe> recipeMap = new HashMap<>();
         private List<Ingredient> playerInventory = new ArrayList<>();
 
@@ -29,7 +31,8 @@ public class GameControl extends JFrame {
                 mainPanel.add(new HomeScene(this), "HOME");
                 mainPanel.add(new SelectionScene(this), "SELECT");
                 mainPanel.add(gameContainer, "GAME");
-                mainPanel.add(new ResultScene(this), "RESULT");
+                resultScene = new ResultScene(this);
+                mainPanel.add(resultScene, "RESULT");
                 add(mainPanel);
                 setVisible(true);
         }
@@ -55,8 +58,7 @@ public class GameControl extends JFrame {
         // GAME LOGIC
         // ===============================
 
-        public void showScene(String name) { cardLayout.show(mainPanel,name);
-        }
+        public void showScene(String name) { cardLayout.show(mainPanel,name);}
         public void startGame(String menuName) { // start minigame
                 selectedMenu = menuName;
                 currentStage = 0;
@@ -93,8 +95,6 @@ public class GameControl extends JFrame {
 
         public void nextStage() {
                 currentStage++;
-                // เพื่ม if else เช็คว่าด้านสุดท้ายหรือไม่
-                //  ไม่แน่ใจว่าควรเช็คตั้งว่า method นี้เลยมั้ย
                 loadStage(currentStage);
         }
         public String getSelectedMenu() {

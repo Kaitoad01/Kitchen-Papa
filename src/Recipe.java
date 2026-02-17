@@ -9,14 +9,15 @@ public class Recipe {
             this.targetIngredient = targetIngredient;
         }
     }
+
     private String name;
-    private List<StageData> stages = new ArrayList<>();
+    private List<StageData> stages = new ArrayList<>(); // List เก็บด่านต่างๆพร้อมชื่อวัตถุดิบ เช่น ด่านทอด, วัตถุดิบ หัวหอม
 
     public Recipe(String name) {
         this.name = name;
     }
-    public void addStage(Class<? extends Minigame> stageClass,String targetIngredient) {
-        stages.add(new StageData(stageClass,targetIngredient));
+    public void addStage(Class<? extends Minigame> stageClass,String targetIngredient) { // เพิ่มด่านพร้อมชื่อวัตถุดิบ
+        stages.add(new StageData(stageClass,targetIngredient)); //
     }
     public StageData getStage(int index) {
         if (index >= 0 && index < stages.size()) {
