@@ -13,8 +13,14 @@ public class CookingStepScreen extends JPanel {
 
         try {
             // โหลดพื้นหลัง
-            kitchenBg = new ImageIcon(getClass().getResource("/images/Cooking_bg.png")).getImage();
+            // kitchenBg = new ImageIcon(getClass().getResource("/images/Cooking_bg.png")).getImage();
             
+            if (menuName.equalsIgnoreCase("Hamburger")) {
+                kitchenBg = new ImageIcon(getClass().getResource("/images/Cooking_Hamburger.png")).getImage();
+            } else if (menuName.equalsIgnoreCase("Steak")) {
+                kitchenBg= new ImageIcon(getClass().getResource("/images/Cooking_bg.png")).getImage();
+            }
+
             ImageIcon finishIcon = new ImageIcon(getClass().getResource("/images/finish_button.png"));
             JButton finishBtn = new JButton(finishIcon); 
             finishBtn.setBounds(1300, 700, 200, 100);

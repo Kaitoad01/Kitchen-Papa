@@ -5,6 +5,7 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             GameWindow game = new GameWindow();
             game.setVisible(true);
+            System.out.println("Hello World");
         });
     }
 }
