@@ -1,9 +1,8 @@
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.Timer;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Color;
+import javax.swing.*;
+
 public class CuttingGame extends Minigame{
     // เกมตัด
     private int cutCount;
@@ -23,6 +22,7 @@ public class CuttingGame extends Minigame{
         super(gameControl);
         this.TARGET_CUTS =TARGET_CUTS;
         this.TIME_LIMIT = TIME_LIMIT;
+        setBackgroundImage("./assets/backgrounds/CuttingStage.png");
         // Initialize the timer (runs every 1000ms = 1 second)
         timer = new Timer(1000, e -> {
             timeLeft--;
@@ -67,6 +67,7 @@ public class CuttingGame extends Minigame{
         if (cutCount >= TARGET_CUTS) {
             Ingredient choppedItem = new Ingredient(this.targetIngredient, Ingredient.State.CHOPPED);
             gameControl.addCompleted(choppedItem); // add ingredient to playerInventory
+            System.out.println("Chopped Success");
              gameControl.nextStage();
         } else {
             System.out.println("You Lost!");

@@ -3,22 +3,38 @@ import java.awt.*;
 
 public class HomeScene extends BackgroundPanel {
     public HomeScene(GameControl gameControl) {
-        super("./assets/backgrounds/background.jpg");
-        // create GirdLayout
-//        BackgroundPanel panel = new BackgroundPanel("./assets/backgrounds/background.jpg");
-        setLayout(new GridBagLayout());
-        // create 2 new button
-        //JButton btnStart = new JButton(new ImageIcon("assets/start_button.png")); ถ้าอย่างการตกแต่งปุ่ม
-        JButton btnStart = new JButton("Start");
-        JButton btnExit = new JButton("Exit");
-        // add function to button
-        btnStart.addActionListener((e) -> {gameControl.showScene("SELECT");});
-        btnExit.addActionListener((e) -> {System.exit(0);});
-        // add component
+        super("./assets/backgrounds/background.png");
+        setLayout(null);
+
+        JButton btnStart = new JButton(GameUtils.resizeIcon("./assets/ui/start_button.png", 200, 70));
+        btnStart.setBounds(650, 550, 200, 70);
+        GameUtils.makeButtonTransparent(btnStart);
+        btnStart.addActionListener((e) -> { gameControl.showScene("SELECT"); });
+
+        JButton btnExit = new JButton(GameUtils.resizeIcon("./assets/ui/back_button.png", 200, 70));
+        btnExit.setBounds(650, 650, 200, 70);
+        GameUtils.makeButtonTransparent(btnExit);
+        btnExit.addActionListener((e) -> { System.exit(0); });
+
+        JLabel picChef = new JLabel(GameUtils.resizeIcon("./assets/characters/chef_santana.png",300,350));
+        picChef.setBounds(200,400,300,350);
+
+        JLabel logo = new JLabel(GameUtils.resizeIcon("./assets/ui/cooking_papa_logo.png",750,150));
+        logo.setBounds(225,100,1100,550);
+
         add(btnStart);
         add(btnExit);
+//        add(logo);
+        add(picChef);
+    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR); // ทำให้รูปชัดเหมือนเดิม
 
-
+         Image logo = new ImageIcon("./assets/ui/cooking_papa_logo.png").getImage();
+         g2d.drawImage(logo, 375, 250, 800, 250, null);
     }
 
 }

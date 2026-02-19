@@ -4,58 +4,65 @@ import java.awt.*;
 public class SelectionScene extends BackgroundPanel {
 
     private GameControl gameControl;
+    private Image titleImg, burgerTextImg, steakTextImg, burgerImg, steakImg;
 
     public SelectionScene(GameControl gameControl) {
-        super("./assets/backgrounds/testBG.jpg");
+        super("./assets/backgrounds/kitchen_blur.png");
         this.gameControl = gameControl;
+        setLayout(null);
+        loadImages();
 
-        // 2. ตั้งค่า Layout หลักของหน้านี้เป็น BorderLayout (แบ่ง ซ้าย-ขวา-บน-ล่าง)
-        setLayout(new BorderLayout());
+        JButton btnBurger = new JButton(GameUtils.resizeIcon("./assets/ui/select_button.png",220,70));
+        btnBurger.setBounds(365,650,220,70);
+        GameUtils.makeButtonTransparent(btnBurger);
+        btnBurger.addActionListener(e -> {gameControl.startGame("Burger");});
 
-        // Menu Select
-        JPanel menuPanel = new JPanel();
-        menuPanel.setLayout(new GridLayout(5, 1, 10, 15)); // 5 แถว, 1 คอลัมน์, ห่างกันแนวตั้ง 15px
-        menuPanel.setOpaque(false); // ทำให้พื้นหลังใส เพื่อให้ทะลุเห็นรูป Background
-        menuPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // ดันขอบเข้ามา
+        JButton btnSteak = new JButton(GameUtils.resizeIcon("./assets/ui/select_button.png",220,70));
+        btnSteak.setBounds(1015,650,220,70);
+        GameUtils.makeButtonTransparent(btnSteak);
+        btnSteak.addActionListener(e -> {gameControl.startGame("Steak");});
 
-        String[] menus = {"Burger", "Steak", "Salad", "Soup", "Sandwich"};
+        JButton btnBack = new JButton(GameUtils.resizeIcon("./assets/ui/back_button.png",200,60));
+        btnBack.setBounds(30,10,200,60);
+        GameUtils.makeButtonTransparent(btnBack);
+        btnBack.addActionListener(e -> {gameControl.showScene("HOME");});
 
-        for (String menuName : menus) {
-            JButton btnMenu = new JButton(menuName);
-            btnMenu.setFont(new Font("Arial", Font.BOLD, 24));
-
-            btnMenu.addActionListener(e -> {
-                System.out.println("Player selected: " + menuName); // ปริ้นเช็ค
-                gameControl.startGame(menuName); // โยนชื่อเมนูไปให้ระบบโหลดด่าน
-            });
-
-            menuPanel.add(btnMenu);
+        add(btnBurger);
+        add(btnSteak);
+        add(btnBack);
+    }
+    private void loadImages() {
+        try {
+            titleImg = new ImageIcon("./assets/ui/menu_selection.png").getImage();
+            burgerTextImg = new ImageIcon("./assets/ui/hamburger_str.png").getImage();
+            steakTextImg = new ImageIcon("./assets/ui/steak_str.png").getImage();
+            burgerImg = new ImageIcon("./assets/ingredient/burger/hamburger.png").getImage();
+            steakImg = new ImageIcon("./assets/ingredient/steak/steak.png").getImage();
+        } catch (Exception e) {
+            System.out.println("Not found image");
         }
-        // Character
-        JPanel characterPanel = new JPanel(new BorderLayout());
-        characterPanel.setOpaque(false);
-        ImageIcon charIcon = new ImageIcon("./assets/characters/testIMG.JPG");
+    }
 
-        // Scale สำหรับตกแต่ง
-        Image img = charIcon.getImage().getScaledInstance(300, 400, Image.SCALE_SMOOTH);
-        JLabel charLabel = new JLabel(new ImageIcon(img));
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
 
-        characterPanel.add(charLabel, BorderLayout.CENTER);
-        characterPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50)); // ดันขอบขวาเข้ามานิดนึง
+        // วาดกระจกใส
+        g2d.setColor(new Color(255, 255, 255, 180));
+        g2d.fillRoundRect(150, 80, 1300, 740, 50, 50);
 
-        // back to home button
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.setOpaque(false);
-        JButton btnBack = new JButton("Back to Home");
+        // วาดการ์ดสีน้ำตาล
+        g2d.setColor(new Color(200, 150, 100, 60));
+        g2d.fillRoundRect(250, 220, 450, 550, 30, 30);
+        g2d.fillRoundRect(900, 220, 450, 550, 30, 30);
 
-        // พอกดปุ่ม Back ก็สั่ง GameControl โชว์หน้า HOME
-        btnBack.addActionListener(e -> gameControl.showScene("HOME"));
-        bottomPanel.add(btnBack);
-
-
-        // add to main
-        add(menuPanel, BorderLayout.WEST);      // เอาเมนูไปแปะซ้าย
-        add(characterPanel, BorderLayout.EAST); // เอาตัวละครไปแปะขวา
-        add(bottomPanel, BorderLayout.SOUTH);   // เอาปุ่มกลับไปแปะล่างสุด
+        // วาดรูปตกแต่ง
+        if (titleImg != null) g2d.drawImage(titleImg, 450, 110, 700, 80, null);
+        if (burgerTextImg != null) g2d.drawImage(burgerTextImg, 325, 260, 300, 50, null);
+        if (steakTextImg != null) g2d.drawImage(steakTextImg, 975, 260, 300, 50, null);
+        if (burgerImg != null) g2d.drawImage(burgerImg, 275, 340, 400, 280, null);
+        if (steakImg != null) g2d.drawImage(steakImg, 925, 370, 400, 220, null);
     }
 }

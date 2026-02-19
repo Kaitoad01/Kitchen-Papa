@@ -1,8 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class ResultScene extends JPanel {
+public class ResultScene extends BackgroundPanel {
     public ResultScene(GameControl gameControl) {
+        super("./assets/backgrounds/background.png");
         // set layout and create label
         setLayout(new GridLayout());
         JLabel lbResult = new JLabel("CONGRATULATIONS!");

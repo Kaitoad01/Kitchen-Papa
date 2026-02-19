@@ -13,8 +13,8 @@ public class StackingGame extends Minigame {
     // Path หลักของรูปภาพในด่านนี้
     private static final String ASSET_PATH = "./assets/ingredient/burger/";
 
-    private List<Ingredient> availableItems;
-    private List<Ingredient> stackItems;
+    private List<Ingredient> availableItems; // List เก็บวัตถุทั้งหมด
+    private List<Ingredient> stackItems; // List เก็บวัตถุดิบที่เอามาประกอบแล้ว
     private JPanel buttonPanel;
 
     private Map<String, Image> imageMap = new HashMap<>();
@@ -24,7 +24,7 @@ public class StackingGame extends Minigame {
     public StackingGame(GameControl gameControl) {
         super(gameControl);
         setLayout(new BorderLayout());
-        setBackground(new Color(255, 228, 196));
+        setBackgroundImage("./assets/backgrounds/CuttingStage.png");
 
         loadImages();
 
@@ -38,7 +38,7 @@ public class StackingGame extends Minigame {
         add(buttonPanel, BorderLayout.NORTH);
     }
 
-    // 🌟 ฟังก์ชันโหลดรูปภาพ (หัวใจสำคัญของการอัปเกรดครั้งนี้)
+    //ฟังก์ชันโหลดรูปภาพ
     private void loadImages() {
         try {
             // โหลดรูปของพื้นฐาน
@@ -51,7 +51,6 @@ public class StackingGame extends Minigame {
             imageMap.put("Cheese", ImageIO.read(new File(ASSET_PATH + "cheese.jpg")));
             imageMap.put("Tomato", ImageIO.read(new File(ASSET_PATH + "tomato.jpg")));
             imageMap.put("Onion", ImageIO.read(new File(ASSET_PATH + "onion.jpg")));
-//            imageMap.put("Lettuce", ImageIO.read(new File(ASSET_PATH + "lettuce.png")));
             imageMap.put("Sauce", ImageIO.read(new File(ASSET_PATH + "sauce.jpg")));
             imageMap.put("Mayo", ImageIO.read(new File(ASSET_PATH + "mayo.jpg")));
             // ขนมปังแผ่นบน (Top Bun)
@@ -79,12 +78,10 @@ public class StackingGame extends Minigame {
 
         // สร้างปุ่มจากของที่มีในตะกร้า
         for (Ingredient item : availableItems) {
-            // เทคนิค: เราจะไม่สร้างปุ่มสำหรับ "Bottom Bun" เพราะมันวางอยู่แล้ว
-            // และสมมติว่าใน Inventory ชื่อ "Bun" คือขนมปังแผ่นบน
-            if (item.getName().equalsIgnoreCase("Bun") && item.getCurrentState() == Ingredient.State.FRIED) {
+            if (item.getName().equalsIgnoreCase("bun") && item.getCurrentState() == Ingredient.State.FRIED) {
                 JButton btnItem = createIngredientButton(item, "Top Bun");
                 buttonPanel.add(btnItem);
-            } else if (!item.getName().equalsIgnoreCase("Bun")) {
+            } else if (!item.getName().equalsIgnoreCase("bun")) {
                 JButton btnItem = createIngredientButton(item, item.getName());
                 buttonPanel.add(btnItem);
             }
@@ -111,15 +108,15 @@ public class StackingGame extends Minigame {
         repaint(); // สั่งวาดหน้าจอใหม่
 
         // เช็คว่าถ้าไอเท็มชิ้นสุดท้ายที่วางคือ "Bun" (Top Bun) ถือว่าจบเกม
-        if (item.getName().equalsIgnoreCase("Bun")) {
+        if (item.getName().equalsIgnoreCase("bun")) {
             endGame();
         }
     }
 
     @Override
     public void endGame() {
-        System.out.println("🍔 Burger Completed!");
-        // ดีเลย์นิดนึงให้ชื่นชมผลงาน
+        System.out.println("Burger Completed!");
+        // ให้ดีเลย์นิดนึง
         Timer delay = new Timer(1500, e -> gameControl.showScene("RESULT"));
         delay.setRepeats(false);
         delay.start();

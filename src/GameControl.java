@@ -23,9 +23,10 @@ public class GameControl extends JFrame {
         public GameControl() {
                 setTitle("Kitchen Papa");
 
-                setSize(1000,600);
+                setSize(1600,900);
                 setDefaultCloseOperation(EXIT_ON_CLOSE);
                 setLocationRelativeTo(null);
+                setResizable(false);
                 initializeRecipes();
 
                 mainPanel.add(new HomeScene(this), "HOME");
@@ -51,6 +52,8 @@ public class GameControl extends JFrame {
 
                 // Menu Steak
                 Recipe steak = new Recipe("Steak");
+                burger.addStage(CuttingGame.class,"Meat");
+                burger.addStage(FryingGame.class,"Bun");
                 recipeMap.put("Steak",steak);
         }
 
@@ -63,11 +66,16 @@ public class GameControl extends JFrame {
                 selectedMenu = menuName;
                 currentStage = 0;
                 playerInventory.clear();
-                if (menuName.equalsIgnoreCase("Burger")) {
+                if (menuName.equals("Burger")) {
                         playerInventory.add(new Ingredient("Sauce", Ingredient.State.READY));
                         playerInventory.add(new Ingredient("Mayo", Ingredient.State.READY));
                         playerInventory.add(new Ingredient("Cheese", Ingredient.State.READY));
-                } // เพิ่มเงื่อนไขสำหรับเมนูอื่น
+                }
+                else if (menuName.equals("Steak")) {
+                        playerInventory.add(new Ingredient("steak1", Ingredient.State.READY));
+                        playerInventory.add(new Ingredient("steak2",Ingredient.State.READY));
+
+                }
                 loadStage(currentStage);
                 showScene("GAME");
         }

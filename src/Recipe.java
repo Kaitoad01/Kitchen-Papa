@@ -11,7 +11,7 @@ public class Recipe {
     }
 
     private String name;
-    private List<StageData> stages = new ArrayList<>(); // List เก็บด่านต่างๆพร้อมชื่อวัตถุดิบ เช่น ด่านทอด, วัตถุดิบ หัวหอม
+    private List<StageData> stages = new ArrayList<>(); // List เก็บด่านต่างๆพร้อมชื่อวัตถุดิบเช่น ด่าน:ทอด,วัตถุดิบ:หัวหอม
 
     public Recipe(String name) {
         this.name = name;

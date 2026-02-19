@@ -20,6 +20,7 @@ public class FryingGame extends Minigame{
         super(gameControl);
         this.TARGET_FLIPS = TARGET_FLIPS;
         this.TIME_LIMIT = TIME_LIMIT;
+        setBackgroundImage("./assets/backgrounds/FryingStage.png");
 
         // Initialize the timer (runs every 1000ms = 1 second)
         timer = new Timer(1000, e -> {
@@ -53,6 +54,7 @@ public class FryingGame extends Minigame{
         if (flipedCount >= TARGET_FLIPS) {
             Ingredient friedItem = new Ingredient(this.targetIngredient, Ingredient.State.FRIED);
             gameControl.addCompleted(friedItem);
+            System.out.println("Frying Success");
              gameControl.nextStage();
         } else {
             gameControl.showScene("RESULT");
@@ -64,7 +66,7 @@ public class FryingGame extends Minigame{
     public void startGame() {
         initGame(); // Reset everything
         timer.start(); // Start the countdown
-        System.out.println("Game Started: Chop fast!");
+        System.out.println("Game Started: Frying fast!");
     }
 
     @Override
