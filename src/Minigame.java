@@ -2,14 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class Minigame extends JPanel {
-//    protected GameControl gameControl;
-    GameControl gameControl; // ใส่ access modifier
-    String targetIngredient;
+    protected GameControl gameControl;
+    protected String targetIngredient;
     Image backgroundImage;
 
     public Minigame(GameControl gameControl) {
         this.gameControl = gameControl;
     }
+
     public void setTargetIngredient(String name) {
         this.targetIngredient = name;
     }
@@ -23,6 +23,7 @@ public abstract class Minigame extends JPanel {
     public abstract void startGame();
     public abstract void initGame();
     public abstract void endGame();
+    public abstract void loadImages();
 
     @Override
     protected  void paintComponent(Graphics g) {

@@ -79,6 +79,10 @@ public class GameControl extends JFrame {
                 loadStage(currentStage);
                 showScene("GAME");
         }
+        public void showResult(boolean isWin) {
+                resultScene.updateResult(isWin, selectedMenu);
+                showScene("RESULT");
+        }
         private void loadStage(int stage) {
                 gameContainer.removeAll();
                 Recipe currentRecipe = recipeMap.get(selectedMenu);
@@ -94,7 +98,7 @@ public class GameControl extends JFrame {
                                 e.printStackTrace();
                         }
                 } else {
-                        showScene("RESULT");
+                        showResult(true);
                         return;
                 }
                 gameContainer.revalidate(); // จัด layout ใหม่
@@ -105,17 +109,15 @@ public class GameControl extends JFrame {
                 currentStage++;
                 loadStage(currentStage);
         }
-        public String getSelectedMenu() {
-                return selectedMenu;
-        }
-        public void failedStage(){
-                System.out.println("Game Over");
-        }
         public void addCompleted(Ingredient item) {
                 playerInventory.add(item);
                 System.out.println("เพิ่มลงตะกร้าแล้ว: " + item.getName() + " (" + item.getCurrentState() + ")");
         }
+        public String getSelectedMenu() {
+                return selectedMenu;
+        }
         public List<Ingredient> getPlayerInventory() {
                 return playerInventory;
         }
+
 }

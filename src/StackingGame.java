@@ -13,20 +13,17 @@ public class StackingGame extends Minigame {
     // Path หลักของรูปภาพในด่านนี้
     private static final String ASSET_PATH = "./assets/ingredient/burger/";
 
-    private List<Ingredient> availableItems; // List เก็บวัตถุทั้งหมด
+    private final List<Ingredient> availableItems; // List เก็บวัตถุทั้งหมด
     private List<Ingredient> stackItems; // List เก็บวัตถุดิบที่เอามาประกอบแล้ว
     private JPanel buttonPanel;
 
     private Map<String, Image> imageMap = new HashMap<>();
-    private Image plateImage;
-    private Image bottomBunImage;
+    private Image plateImage, bottomBunImage;
 
     public StackingGame(GameControl gameControl) {
         super(gameControl);
         setLayout(new BorderLayout());
         setBackgroundImage("./assets/backgrounds/CuttingStage.png");
-
-        loadImages();
 
         this.availableItems = gameControl.getPlayerInventory();
         this.stackItems = new ArrayList<>();
@@ -36,33 +33,6 @@ public class StackingGame extends Minigame {
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 15));
         buttonPanel.setOpaque(false);
         add(buttonPanel, BorderLayout.NORTH);
-    }
-
-    //ฟังก์ชันโหลดรูปภาพ
-    private void loadImages() {
-        try {
-            // โหลดรูปของพื้นฐาน
-            plateImage = ImageIO.read(new File(ASSET_PATH + "wan.jpg"));
-            bottomBunImage = ImageIO.read(new File(ASSET_PATH + "bun.jpg")); // bottomBun
-
-            // โหลดรูปวัตถุดิบอื่นๆ ใส่ Map
-            // ชื่อ Key ต้องตรงกับชื่อที่อยู่ใน Ingredient (จาก Recipe/GameControl)
-            imageMap.put("Meat", ImageIO.read(new File(ASSET_PATH + "meat.jpg")));
-            imageMap.put("Cheese", ImageIO.read(new File(ASSET_PATH + "cheese.jpg")));
-            imageMap.put("Tomato", ImageIO.read(new File(ASSET_PATH + "tomato.jpg")));
-            imageMap.put("Onion", ImageIO.read(new File(ASSET_PATH + "onion.jpg")));
-            imageMap.put("Sauce", ImageIO.read(new File(ASSET_PATH + "sauce.jpg")));
-            imageMap.put("Mayo", ImageIO.read(new File(ASSET_PATH + "mayo.jpg")));
-            // ขนมปังแผ่นบน (Top Bun)
-            imageMap.put("Bun", ImageIO.read(new File(ASSET_PATH + "bun.jpg")));
-
-        } catch (IOException e) {
-            System.err.println("Error loading burger images!");
-            e.printStackTrace();
-            // ถ้าโหลดไม่เจอให้ใช้ภาพเปล่าๆแทนเพื่อไม่ให้บัค
-            plateImage = new java.awt.image.BufferedImage(1, 1, java.awt.image.BufferedImage.TYPE_INT_ARGB);
-            bottomBunImage = plateImage;
-        }
     }
 
     @Override
@@ -75,6 +45,7 @@ public class StackingGame extends Minigame {
     public void initGame() {
         stackItems.clear();
         buttonPanel.removeAll();
+        loadImages();
 
         // สร้างปุ่มจากของที่มีในตะกร้า
         for (Ingredient item : availableItems) {
@@ -117,9 +88,38 @@ public class StackingGame extends Minigame {
     public void endGame() {
         System.out.println("Burger Completed!");
         // ให้ดีเลย์นิดนึง
-        Timer delay = new Timer(1500, e -> gameControl.showScene("RESULT"));
+        Timer delay = new Timer(1500, e ->{
+            gameControl.showResult(true);
+            gameControl.showScene("RESULT");
+        });
         delay.setRepeats(false);
         delay.start();
+    }
+    //ฟังก์ชันโหลดรูปภาพ
+    public void loadImages() {
+        try {
+            // โหลดรูปของพื้นฐาน
+            plateImage = ImageIO.read(new File(ASSET_PATH + "wan.jpg"));
+            bottomBunImage = ImageIO.read(new File(ASSET_PATH + "bun.jpg")); // bottomBun
+
+            // โหลดรูปวัตถุดิบอื่นๆ ใส่ Map
+            // ชื่อ Key ต้องตรงกับชื่อที่อยู่ใน Ingredient (จาก Recipe/GameControl)
+            imageMap.put("Meat", ImageIO.read(new File(ASSET_PATH + "meat.jpg")));
+            imageMap.put("Cheese", ImageIO.read(new File(ASSET_PATH + "cheese.jpg")));
+            imageMap.put("Tomato", ImageIO.read(new File(ASSET_PATH + "tomato.jpg")));
+            imageMap.put("Onion", ImageIO.read(new File(ASSET_PATH + "onion.jpg")));
+            imageMap.put("Sauce", ImageIO.read(new File(ASSET_PATH + "sauce.jpg")));
+            imageMap.put("Mayo", ImageIO.read(new File(ASSET_PATH + "mayo.jpg")));
+            // ขนมปังแผ่นบน (Top Bun)
+            imageMap.put("Bun", ImageIO.read(new File(ASSET_PATH + "bun.jpg")));
+
+        } catch (IOException e) {
+            System.err.println("Error loading burger images!");
+            e.printStackTrace();
+            // ถ้าโหลดไม่เจอให้ใช้ภาพเปล่าๆแทนเพื่อไม่ให้บัค
+            plateImage = new java.awt.image.BufferedImage(1, 1, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+            bottomBunImage = plateImage;
+        }
     }
 
 
@@ -133,7 +133,7 @@ public class StackingGame extends Minigame {
         int centerX = getWidth() / 2;
         int baseY = getHeight() - 150; // จุดเริ่มวางจาน
 
-        // 1. วาดจาน (ถ้าโหลดมาได้)
+        // 1. วาดจาน
         if (plateImage != null) {
             int plateW = 400; int plateH = 100;
             g2d.drawImage(plateImage, centerX - plateW/2, baseY, plateW, plateH, null);

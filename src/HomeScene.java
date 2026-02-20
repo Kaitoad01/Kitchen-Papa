@@ -18,13 +18,8 @@ public class HomeScene extends BackgroundPanel {
 
         JLabel picChef = new JLabel(GameUtils.resizeIcon("./assets/characters/chef_santana.png",300,350));
         picChef.setBounds(200,400,300,350);
-
-        JLabel logo = new JLabel(GameUtils.resizeIcon("./assets/ui/cooking_papa_logo.png",750,150));
-        logo.setBounds(225,100,1100,550);
-
         add(btnStart);
         add(btnExit);
-//        add(logo);
         add(picChef);
     }
     @Override
