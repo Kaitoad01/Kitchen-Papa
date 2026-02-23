@@ -59,20 +59,6 @@ public class CuttingGame extends Minigame{
 
     }
 
-    private void endGame() {
-        timer.stop();
-        isGameOver = true;
-        
-        if (cutCount >= TARGET_CUTS) {
-            System.out.println("You Won!");
-            // gameControl.nextStage();
-        } else {
-            System.out.println("You Lost!");
-            // gameControl.failedStage(); Do not have this thing yet but should
-        }
-        repaint();
-    }
-
     @Override
     public void startGame() {
         initGame(); // Reset everything

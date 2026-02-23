@@ -73,6 +73,7 @@ public class FryingGame extends Minigame{
     public void endGame() {
         timer.stop();
         isGameOver = true;
+        repaint();
 
         if (flipedCount >= TARGET_FLIPS) {
             Ingredient friedItem = new Ingredient(this.targetIngredient, Ingredient.State.FRIED);
@@ -82,7 +83,7 @@ public class FryingGame extends Minigame{
         } else {
             gameControl.showResult(false);
         }
-        repaint();
+        
     }
 
     @Override

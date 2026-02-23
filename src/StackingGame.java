@@ -16,6 +16,7 @@ public class StackingGame extends Minigame {
     private final List<Ingredient> availableItems; // List เก็บวัตถุทั้งหมด
     private List<Ingredient> stackItems; // List เก็บวัตถุดิบที่เอามาประกอบแล้ว
     private JPanel buttonPanel;
+    private  int stackCount ;
 
     private Map<String, Image> imageMap = new HashMap<>();
     private Image plateImage, bottomBunImage;
@@ -43,6 +44,7 @@ public class StackingGame extends Minigame {
 
     @Override
     public void initGame() {
+        stackCount = 0;
         stackItems.clear();
         buttonPanel.removeAll();
         loadImages();
@@ -76,6 +78,7 @@ public class StackingGame extends Minigame {
 
     private void stack(Ingredient item) {
         stackItems.add(item);
+        stackCount++;
         repaint(); // สั่งวาดหน้าจอใหม่
 
         // เช็คว่าถ้าไอเท็มชิ้นสุดท้ายที่วางคือ "Bun" (Top Bun) ถือว่าจบเกม
@@ -86,7 +89,9 @@ public class StackingGame extends Minigame {
 
     @Override
     public void endGame() {
-        System.out.println("Burger Completed!");
+
+        if (stackCount ==7 ){
+            System.out.println("Burger Completed!");
         // ให้ดีเลย์นิดนึง
         Timer delay = new Timer(1500, e ->{
             gameControl.showResult(true);
@@ -94,6 +99,10 @@ public class StackingGame extends Minigame {
         });
         delay.setRepeats(false);
         delay.start();
+        }
+        else
+            gameControl.showResult(false);
+
     }
     //ฟังก์ชันโหลดรูปภาพ
     public void loadImages() {
