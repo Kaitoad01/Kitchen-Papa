@@ -1,0 +1,171 @@
+@startuml
+class GameControl {
+~ CardLayout cardLayout
+~ JPanel mainPanel
++ String selectedMenu
+- int currentStage
+- JPanel gameContainer
+- ResultScene resultScene
+- Map<String,Recipe> recipeMap
+- List<Ingredient> playerInventory
+- void initializeRecipes()
++ void showScene(String)
++ void startGame(String)
++ void showResult(boolean)
+- void loadStage(int)
++ void nextStage()
++ void addCompleted(Ingredient)
++ String getSelectedMenu()
++ List<Ingredient> getPlayerInventory()
+}
+
+
+class Ingredient {
+- String name
+- State currentState
++ void changeState(State)
++ String getName()
++ State getCurrentState()
+}
+
+
+enum State {
++  RAW
++  CHOPPED
++  FRIED
++  READY
+}
+
+class StackingGame {
+- {static} String ASSET_PATH
+- List<Ingredient> availableItems
+- List<Ingredient> stackItems
+- JPanel buttonPanel
+- int stackCount
+- Map<String,Image> imageMap
+- Image plateImage
++ void startGame()
++ void initGame()
+- JButton createIngredientButton(Ingredient,String)
+- void stack(Ingredient)
++ void endGame()
++ void loadImages()
+# void paintComponent(Graphics)
+}
+
+
+class CuttingGame {
+- int cutCount
+- boolean isGameOver
+- int timeLeft
+- int TARGET_CUTS
+- int TIME_LIMIT
+- Timer timer
+- Image imgOriginal
+- Image imgCut
+- Image imgFinish
++ void startGame()
++ void initGame()
++ void endGame()
++ void loadImages()
+# void paintComponent(Graphics)
+}
+
+
+class Recipe {
+- String name
+- List<StageData> stages
++ void addStage(Class<? extends Minigame>,String)
++ StageData getStage(int)
+}
+
+
+class Recipe$StageData {
++ Class<? extends Minigame> gameClass
++ String targetIngredient
+}
+
+class ResultScene {
+- GameControl gameControl
+- boolean isWin
+- String menuName
+- Image chefBurgerImg
+- void loadImages()
++ void updateResult(boolean,String)
+# void paintComponent(Graphics)
+}
+
+
+class BackgroundPanel {
+- Image backgroundImage
+# void paintComponent(Graphics)
+}
+
+
+class FryingGame {
+- int flipedCount
+- boolean isGameOver
+- int timeLeft
+- int TARGET_FLIPS
+- int TIME_LIMIT
+- Timer timer
+- Image imgPanRaw
+- Image imgPanCooked
+- Image imgPanUp
+- Image imgPanEmpty
++ void startGame()
++ void initGame()
++ void endGame()
++ void loadImages()
+# void paintComponent(Graphics)
+}
+
+
+class KitchenPapa {
++ {static} void main(String[])
+}
+
+class SelectionScene {
+- GameControl gameControl
+- Image titleImg
+- void loadImages()
+# void paintComponent(Graphics)
+}
+
+
+abstract class Minigame {
+# GameControl gameControl
+# String targetIngredient
+~ Image backgroundImage
++ void setTargetIngredient(String)
++ void setBackgroundImage(String)
++ {abstract}void startGame()
++ {abstract}void initGame()
++ {abstract}void endGame()
++ {abstract}void loadImages()
+# void paintComponent(Graphics)
+}
+
+
+class GameUtils {
++ {static} ImageIcon resizeIcon(String,int,int)
++ {static} void makeButtonTransparent(JButton)
+}
+
+class HomeScene {
+# void paintComponent(Graphics)
+}
+
+
+
+JFrame <|-- GameControl
+Minigame <|-- StackingGame
+Minigame <|-- CuttingGame
+Recipe +.. Recipe$StageData
+BackgroundPanel <|-- ResultScene
+JPanel <|-- BackgroundPanel
+Minigame <|-- FryingGame
+BackgroundPanel <|-- SelectionScene
+JPanel <|-- Minigame
+BackgroundPanel <|-- HomeScene
+@enduml

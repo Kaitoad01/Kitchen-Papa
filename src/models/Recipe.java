@@ -1,0 +1,36 @@
+package models;
+
+import minigames.Minigame;
+
+import java.util.*;
+public class Recipe {
+    public static class StageData {
+        public Class<? extends Minigame> gameClass;
+        public String targetIngredient;
+
+        public StageData(Class<? extends Minigame> gameClass, String targetIngredient) {
+            this.gameClass = gameClass;
+            this.targetIngredient = targetIngredient;
+        }
+    }
+
+    private String name;
+    private List<StageData> stages = new ArrayList<>(); // List เก็บด่านต่างๆพร้อมชื่อวัตถุดิบเช่น ด่าน:ทอด,วัตถุดิบ:หัวหอม
+
+    public Recipe(String name) {
+        this.name = name;
+    }
+    public void addStage(Class<? extends Minigame> stageClass,String targetIngredient) { // เพิ่มด่านพร้อมชื่อวัตถุดิบ
+        stages.add(new StageData(stageClass,targetIngredient)); //
+    }
+    public StageData getStage(int index) {
+        if (index >= 0 && index < stages.size()) {
+            return stages.get(index);
+        }
+        return null;
+     }
+
+
+
+
+}
