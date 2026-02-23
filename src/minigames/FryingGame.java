@@ -25,9 +25,9 @@ public class FryingGame extends Minigame {
     private boolean movingRight = true;
     private int cursorSpeed = 15; // ความเร็วของเข็ม
 
-    private final int BAR_X = 500;
+    private final int BAR_X = 500; // จุดเริ่มต้นของหลอด
     private final int BAR_Y = 750;
-    private final int BAR_WIDTH = 600;
+    private final int BAR_WIDTH = 600; // ขนาดของหลอด
     private final int BAR_HEIGHT = 40;
 
     private int zoneStart; // จุดเริ่มต้นของโซนสีเขียว
@@ -61,6 +61,7 @@ public class FryingGame extends Minigame {
             if (!isGameOver) {
                 if (movingRight) {
                     cursorX += cursorSpeed;
+                    // BAR_X + BAR_WIDTH คือความยาวของหลอดทั้งหมด
                     if (cursorX >= BAR_X + BAR_WIDTH) movingRight = false;
                 } else {
                     cursorX -= cursorSpeed;
@@ -97,6 +98,7 @@ public class FryingGame extends Minigame {
         int min = BAR_X;
         int max = BAR_X + BAR_WIDTH - ZONE_WIDTH;
         zoneStart = min + (int)(Math.random() * ((max - min) + 1));
+        // เราไม่สามารถใช้ขอบขวาสุดของหลอดเพราะJava จะเริ่มวาดจากซ้ายไปขวา ถ้าเราสุ่มได้จุดขวาสุดพอดี กล่องเขียวมันจะวาดล้นกรอบออกไปด้านขวา
     }
 
     @Override
@@ -159,7 +161,7 @@ public class FryingGame extends Minigame {
 
         int centerX = getWidth() / 2;
         int centerY = getHeight() / 2;
-
+        // แอนิเมชันเปลี่ยนรูป
         Image currentPanImg = imgPanRaw;
         if (isGameOver && isSuccess) {
             currentPanImg = imgPanCooked;
@@ -170,14 +172,14 @@ public class FryingGame extends Minigame {
                 currentPanImg = imgPanCooked;
             }
         }
-
+        // วาดกระทะ
         if (currentPanImg != null) {
             int imgW = 450;
             int imgH = 450;
             g2d.drawImage(currentPanImg, centerX - (imgW / 2) + 65, centerY - (imgH / 2) - 20, imgW, imgH, null);
         }
 
-
+        // วาด ui ด้านซ้าย
         g2d.setFont(new Font("Monospaced", Font.BOLD, 36));
         g2d.setColor(timeLeft > 3 ? Color.BLACK : Color.RED);
         g2d.drawString("TIME: " + timeLeft + "s", 30, 60);
