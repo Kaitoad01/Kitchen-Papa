@@ -5,7 +5,7 @@ import java.awt.*;
 import core.*;
 
 public class ResultScene extends BackgroundPanel {
-    private GameControl gameControl;
+    protected GameControl gameControl;
     private boolean isWin = false;
     private String menuName = "";
     private Image chefBurgerImg, chefSteakImg, chefFailImg;

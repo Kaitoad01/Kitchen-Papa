@@ -6,7 +6,7 @@ import core.*;
 
 public class SelectionScene extends BackgroundPanel {
 
-    private GameControl gameControl;
+    protected GameControl gameControl;
     private Image titleImg, burgerTextImg, steakTextImg, burgerImg, steakImg;
 
     public SelectionScene(GameControl gameControl) {
