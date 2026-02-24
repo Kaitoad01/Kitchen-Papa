@@ -22,7 +22,7 @@ public class CuttingGame extends Minigame {
     private Image knife , knifeCut;
 
     public CuttingGame(GameControl gameControl) {
-        this(gameControl,5,20);
+        this(gameControl,5,5);
     }
     public CuttingGame(GameControl gameControl, int TARGET_CUTS, int TIME_LIMIT) {
         super(gameControl);
