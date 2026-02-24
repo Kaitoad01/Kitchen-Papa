@@ -57,26 +57,24 @@ public class FryingSteakGame extends Minigame {
             repaint();
         });
 
-        // ลูปเข็มวิ่งไป-มา
         gameLoop = new Timer(16, e -> {
             if (!isGameOver) {
-                // 1. กดเมาส์ค้าง = เพิ่มความร้อน | ปล่อยเมาส์ = ลดความร้อน
+                
                 if (isMouseDown) {
-                    heat += 0.5f; 
+                    heat += 0.8f; 
                 } else {
-                    heat -= 0.3f; 
+                    heat -= 0.5f; 
                 }
 
-                // ควบคุมไม่ให้ค่าหลุดขอบ
                 if (heat < 0) heat = 0;
                 if (heat > 100) heat = 100;
 
                 // คำนวณตำแหน่งเข็มจากค่าความร้อน
                 cursorX = BAR_X + (int)((heat / 100.0f) * BAR_WIDTH);
 
-                // 2. เช็คว่าเข็มอยู่ในโซนสีเขียวหรือไม่
+                // Is cursor on the green bar
                 if (cursorX >= zoneStart && cursorX <= zoneStart + ZONE_WIDTH) {
-                    cookProgress += 1.0f; // เนื้อกำลังสุก!
+                    cookProgress += 1.0f;
                     
                     // ถ้าสุกเต็มที่ = พลิกด้าน
                     if (cookProgress >= 100) {
@@ -91,8 +89,8 @@ public class FryingSteakGame extends Minigame {
                         }
                     }
                 } else {
-                    // ถ้าหลุดโซนสีเขียว ความสุกจะลดลงช้าๆ
-                    if (cookProgress > 0) cookProgress -= 0.2f;
+                    // ถ้าหลุดโซนสีเขียว ความสุกจะลดลง
+                    if (cookProgress > 0) cookProgress -= 1f;
                 }
 
                 // 3. ถ้าความร้อนแตะ 100% (ขวาสุด) = ไหม้!
