@@ -29,14 +29,6 @@ public class CuttingGame extends Minigame {
         this.TARGET_CUTS =TARGET_CUTS;
         this.TIME_LIMIT = TIME_LIMIT;
         setBackgroundImage("./assets/backgrounds/CuttingStage.png");
-        // Initialize the timer (runs every 1000ms = 1 second)
-        timer = new Timer(1000, e -> {
-            timeLeft--;
-            if (timeLeft <= 0) {
-                endGame();
-            }
-            repaint(); // Redraw the timer on screen
-        });
 
         // Initialize the timer (runs every 1000ms = 1 second)
         timer = new Timer(1000, e -> {

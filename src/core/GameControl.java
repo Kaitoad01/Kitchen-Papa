@@ -56,7 +56,7 @@ public class GameControl extends JFrame {
                 // Menu Burger
                 Recipe burger = new Recipe("Burger");
                 burger.addStage(CuttingGame.class,"Onion");
-                burger.addStage(CuttingGame.class,"");
+                burger.addStage(CuttingGame.class,"Cab");
                 burger.addStage(CuttingGame.class,"Tomato");
                 burger.addStage(FryingBurgerGame.class,"Meat");
                 burger.addStage(StackingGame.class,"Burger");
