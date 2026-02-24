@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.Timer;
 import javax.swing.ImageIcon;
 
-public class FryingGame extends Minigame {
+public class FryingBurgerGame extends Minigame {
     private int flipedCount;
     private boolean isGameOver;
     private boolean isSuccess;
@@ -37,11 +37,11 @@ public class FryingGame extends Minigame {
     private Image imgPanCooked;
     private Image imgPanUp;
 
-    public FryingGame(GameControl gameControl) {
+    public FryingBurgerGame(GameControl gameControl) {
         this(gameControl, 5, 20);
     }
 
-    public FryingGame(GameControl gameControl, int TARGET_FLIPS, int TIME_LIMIT) {
+    public FryingBurgerGame(GameControl gameControl, int TARGET_FLIPS, int TIME_LIMIT) {
         super(gameControl);
         this.TARGET_FLIPS = TARGET_FLIPS;
         this.TIME_LIMIT = TIME_LIMIT;

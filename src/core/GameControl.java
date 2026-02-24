@@ -1,6 +1,7 @@
 package core;
 
-import minigames.FryingGame;
+import minigames.FryingSteakGame;
+import minigames.FryingBurgerGame;
 import minigames.Minigame;
 import minigames.StackingGame;
 import models.Ingredient;
@@ -55,8 +56,9 @@ public class GameControl extends JFrame {
                 // Menu Burger
                 Recipe burger = new Recipe("Burger");
                 burger.addStage(CuttingGame.class,"Onion");
+                burger.addStage(CuttingGame.class,"");
                 burger.addStage(CuttingGame.class,"Tomato");
-                burger.addStage(FryingGame.class,"Meat");
+                burger.addStage(FryingBurgerGame.class,"Meat");
                 burger.addStage(StackingGame.class,"Burger");
 
                 recipeMap.put("Burger", burger);
@@ -65,7 +67,7 @@ public class GameControl extends JFrame {
                 Recipe steak = new Recipe("Steak");
                 steak.addStage(CuttingGame.class,"Cab");
                 steak.addStage(CuttingGame.class,"Onion");
-                steak.addStage(FryingGame.class,"Meat");
+                steak.addStage(FryingSteakGame.class,"Meat");
                 recipeMap.put("Steak",steak);
         }
 

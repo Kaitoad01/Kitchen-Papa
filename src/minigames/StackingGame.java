@@ -94,7 +94,7 @@ public class StackingGame extends Minigame {
     @Override
     public void endGame() {
 
-        if (stackCount == 7 ){
+        if (stackCount == 8 ){
             System.out.println("Burger Completed!");
         // ให้ดีเลย์นิดนึง
         Timer delay = new Timer(1500, e ->{
@@ -118,6 +118,7 @@ public class StackingGame extends Minigame {
             imageMap.put("Tomato", ImageIO.read(new File(ASSET_PATH + "tomatoSmall.png")));
             imageMap.put("Onion", ImageIO.read(new File(ASSET_PATH + "onionstack.png")));
             imageMap.put("Sauce", ImageIO.read(new File(ASSET_PATH + "sauce.png")));
+            imageMap.put("Cab", ImageIO.read(new File(ASSET_PATH + "vet.png")));
             imageMap.put("Mayo", ImageIO.read(new File(ASSET_PATH + "mayo.png")));
             // ขนมปังแผ่นบน (Top Bun)
             imageMap.put("Bun", ImageIO.read(new File(ASSET_PATH + "topBun.png")));
